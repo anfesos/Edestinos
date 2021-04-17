@@ -1,0 +1,57 @@
+defaultTasks 'clean','test','aggregate'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.3.12")
+        classpath "net.serenity-bdd:serenity-single-page-report:2.3.12"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+group 'co.com.edestinos.vuelos'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    implementation "net.serenity-bdd:serenity-core:2.0.4",
+            "net.serenity-bdd:serenity-cucumber:1.9.20",
+            "org.assertj:assertj-core:1.7.0",
+            "net.serenity-bdd:serenity-screenplay:2.0.9",
+            "net.serenity-bdd:serenity-screenplay-webdriver:2.0.9"
+
+    testImplementation "net.serenity-bdd:serenity-core:2.0.4",
+            "net.serenity-bdd:serenity-cucumber:1.9.20",
+            "org.assertj:assertj-core:1.7.0",
+            "net.serenity-bdd:serenity-screenplay:2.0.9",
+            "net.serenity-bdd:serenity-screenplay-webdriver:2.0.9"
+}
+
+serenity {
+    reports = ["single-page-html"]
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
