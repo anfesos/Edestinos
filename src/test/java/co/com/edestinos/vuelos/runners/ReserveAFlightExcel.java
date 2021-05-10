@@ -7,10 +7,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "src/test/resources/features/reserve_a_flight.feature",
+        features = "src/test/resources/features/reserve_a_flight_excel.feature",
         glue = "co.com.edestinos.vuelos.stepdefinitions",
-        snippets = SnippetType.CAMELCASE,
-        tags = "@BookRoundTripFlight"
+        snippets = SnippetType.CAMELCASE
 )
-public class ReserveAFlight {
+public class ReserveAFlightExcel {
 }
